@@ -107,3 +107,5 @@ You'll see we have now bypassed the rule, and the user updated the avatar. This 
 
 
 Viewing the page source of the avatar form, you'll see the currently set avatar now contains the contents from the /private directory in base64 encoding, decode this content and it will reveal a flag that you can enter below
+
+

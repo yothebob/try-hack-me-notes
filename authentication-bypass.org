@@ -1,4 +1,4 @@
-username Enumeration
+* username Enumeration
 
 A helpful exercise to complete when trying to find authentication vulnerabilities is creating a list of valid usernames, which we'll use later in other tasks.
 
@@ -18,7 +18,7 @@ The ffuf tool and wordlist come pre-installed on the AttackBox or can be install
 Save the results from this command into a file called valid_usernames.txt which we can use in a later task and then answer the questions below.
                
 
-Brute force
+* Brute force
 
 Using the valid_usernames.txt file we generated in the previous task, we can now use this to attempt a brute force attack on the login page (http://10.10.35.206/customers/login).
 
@@ -38,7 +38,7 @@ This ffuf command is a little different to the previous one in Task 2. Previousl
 Running the above command will find a single working username and password combination that answers the question below.
 
 
-Logic Flaw
+* Logic Flaw
 
 
 Sometimes authentication processes contain logic flaws. A logic flaw is when the typical logical path of an application is either bypassed, circumvented or manipulated by a hacker. Logic flaws can exist in any area of a website, but we're going to concentrate on examples relating to authentication in this instance.
@@ -55,7 +55,7 @@ if( url.substr(0,6) === '/admin') {
 
 Because the above PHP code example uses three equals signs (===), it's looking for an exact match on the string, including the same letter casing. The code presents a logic flaw because an unauthenticated user requesting /adMin will not have their privileges checked and have the page displayed to them, totally bypassing the authentication checks.
 
-Logic Flaw Practical
+* Logic Flaw Practical
 
 We're going to examine the Reset Password function of the Acme IT Support website (http://10.10.35.206/customers/reset). We see a form asking for the email address associated with the account on which we wish to perform the password reset. If an invalid email is entered, you'll receive the error message "Account not found from supplied email address".
 
@@ -88,7 +88,7 @@ The PHP $_REQUEST variable is an array that contains data received from the quer
 
 
 
-Cookie Tampering
+* Cookie Tampering
 
 
 Examining and editing the cookies set by the web server during your online session can have multiple outcomes, such as unauthenticated access, access to another user's account, or elevated privileges. If you need a refresher on cookies, check out the HTTP In Detail room on task 6.
@@ -133,7 +133,7 @@ user@tryhackme$ curl -H "Cookie: logged_in=true; admin=true" http://10.10.35.206
 
 This returns the result: Logged In As An Admin as well as a flag which you can use to answer question one.
 
-Hashing
+* Hashing
 
 Sometimes cookie values can look like a long string of random characters; these are called hashes which are an irreversible representation of the original text. Here are some examples that you may come across:
 Original String
