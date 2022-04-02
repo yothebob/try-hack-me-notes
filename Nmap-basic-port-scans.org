@@ -34,7 +34,6 @@ The next step would be checking which ports are open and listening and which por
 
 Moreover, we discuss the different options to specify the ports, the scan rate, and the number of parallel probes.
 
-
 * TCP and UDP Ports
 
   In the same sense that an IP address specifies a host on a network among many others, a TCP port or UDP port is used to identify a network service running on that host. A server provides the network service, and it adheres to a specific network protocol. Examples include providing time, responding to DNS queries, and serving web pages. A port is usually linked to a service using that specific port number. For instance, an HTTP server would bind to TCP port 80 by default; moreover, if the HTTP server supports SSL/TLS, it would listen on TCP port 443. (TCP ports 80 and 443 are the default ports for HTTP and HTTPS; however, the webserver administrator might choose other port numbers if necessary.) Furthermore, no more than one service can listen on any TCP or UDP port (on the same IP address).
@@ -71,7 +70,6 @@ In particular, we need to focus on the flags that Nmap can set or unset. We have
     RST: Reset flag is used to reset the connection. Another device, such as a firewall, might send it to tear a TCP connection. This flag is also used when data is sent to a host and there is no service on the receiving end to answer.
     SYN: Synchronize flag is used to initiate a TCP 3-way handshake and synchronize sequence numbers with the other host. The sequence number should be set randomly during TCP connection establishment.
     FIN: The sender has no more data to send.
-
 
 * TCP Connect Scan
   TCP connect scan works by completing the TCP 3-way handshake. In standard TCP connection establishment, the client sends a TCP packet with SYN flag set, and the server responds with SYN/ACK if the port is open; finally, the client completes the 3-way handshake by sending an ACK.
@@ -126,7 +124,6 @@ Note that we can use -F to enable fast mode and decrease the number of scanned p
 
 It is worth mentioning that the -r option can also be added to scan the ports in consecutive order instead of random order. This option is useful when testing whether ports open in a consistent manner, for instance, when a target boots up.
 
-
 * TCP SYN Scan
 
   Unprivileged users are limited to connect scan. However, the default scan mode is SYN scan, and it requires a privileged (root or sudoer) user to run it. SYN scan does not need to complete the TCP 3-way handshake; instead, it tears down the connection once it receives a response from the server. Because we didn’t establish a TCP connection, this decreases the chances of the scan being logged. We can select this scan type by using the -sS option. The figure below shows how the TCP SYN scan works without completing the TCP 3-way handshake.
@@ -155,8 +152,7 @@ PORT    STATE SERVICE
 MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 1.60 seconds
-
-        
+      
 * UDP Scan
 
   UDP is a connectionless protocol, and hence it does not require any handshake for connection establishment. We cannot guarantee that a service listening on a UDP port would respond to our packets. However, if a UDP packet is sent to a closed port, an ICMP port unreachable error (type 3, code 3) is returned. You can select UDP scan using the -sU option; moreover, you can combine it with another TCP scan.
@@ -183,7 +179,6 @@ PORT    STATE         SERVICE
 MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 1085.05 seconds
-
 
 * Fine-Tuning Scope and Preformance
   
@@ -218,7 +213,6 @@ A : --min-parallelism 64
 
 What option would you add to make Nmap very slow and paranoid?
 A : -T0
-
 
 * Summary
 

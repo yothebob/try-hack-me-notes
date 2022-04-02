@@ -1,5 +1,5 @@
 #+TITLE: Active Reconnaissance
-
+* Intro
 In the first room of the Network Security Module, we focused on passive reconnaissance. In this second room, we focus on active reconnaissance and the essential tools related to it. We learn to use a web browser to collect more information about our target. Moreover, we discuss using simple tools such as ping, traceroute, telnet, and nc to gather information about the network, system, and services.
 
 As we learned in the previous room, passive reconnaissance lets you gather information about your target without any kind of direct engagement or connection. You are watching from afar or checking publicly available information.
@@ -13,8 +13,6 @@ In this room, we go through various tools commonly bundled with most operating s
 This room is of interest to anyone who wants to become familiar with essential tools and see how they can use them in active reconnaissance. The web browser developer tools might take some effort to gain familiarity, although it offers a graphical user interface. The command-line tools covered are relatively straightforward to use.
 
 Important Notice: Please note that if you're not subscribed, the AttackBox won't have Internet access, so you will need to use the VPN to complete the questions that require Internet access.
-
-
 * Web Browser
   
   The web browser can be a convenient tool, especially that it is readily available on all systems. There are several ways where you can use a web browser to gather information about a target.
@@ -37,7 +35,6 @@ There are also plenty of add-ons for Firefox and Chrome that can help in penetra
     - Wappalyzer provides insights about the technologies used on the visited websites. Such extension is handy, primarily when you collect all this information while browsing the website like any other user. A screenshot of Wappalyzer is shown below. You can find Wappalyzer for Firefox here.
 
 Over time, you might find a few extensions that fit perfectly in your workflow.
-
 
 * Ping
 
@@ -102,7 +99,6 @@ Generally speaking, when we don’t get a ping reply back, there are a few expla
     A firewall is configured to block such packets. The firewall might be a piece of software running on the system itself or a separate network appliance. Note that MS Windows firewall blocks ping by default.
     Your system is unplugged from the network.
     
-
 * Traceroute
 
   
@@ -191,7 +187,6 @@ To summarize, we can notice the following:
     Some routers return a public IP address. You might examine a few of these routers based on the scope of the intended penetration testing.
     Some routers don’t return a reply.
 
-
 *  Telnet
   
     The TELNET (Teletype Network) protocol was developed in 1969 to communicate with a remote system via a command-line interface (CLI). Hence, the command telnet uses the TELNET protocol for remote administration. The default port used by telnet is 23. From a security perspective, telnet sends all the data, including usernames and passwords, in cleartext. Sending in cleartext makes it easy for anyone, who has access to the communication channel, to steal the login credentials. The secure alternative is SSH (Secure SHell) protocol.
@@ -226,7 +221,6 @@ Accept-Ranges: bytes
         
 
 Of particular interest for us is discovering the type and version of the installed web server, Server: nginx/1.6.2. In this example, we communicated with a web server, so we used basic HTTP commands. If we connect to a mail server, we need to use proper commands based on the protocol, such as SMTP and POP3.
-
 
 * Netcat
   
@@ -277,7 +271,6 @@ Notes:
 On the client-side, you would issue nc MACHINE_IP PORT_NUMBER. Here is an example of using nc to echo. After you successfully establish a connection to the server, whatever you type on the client-side will be echoed on the server-side and vice versa.
 
 Consider the following example. On the server-side, we will listen on port 1234. We can achieve this with the command nc -vnlp 1234 (same as nc -lvnp 1234). In our case, the listening server has the IP address MACHINE_IP, so we can connect to it from the client-side by executing nc MACHINE_IP 1234. This setup would echo whatever you type on one side to the other side of the TCP tunnel. You can find a recording of the process below. Note that the listening server is on the left side of the screen.
-
 
 * Putting it all together
 

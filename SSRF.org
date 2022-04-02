@@ -17,7 +17,6 @@
   4. Reveal authentication tokens/credentials.
 
 
-  
 * Task 2 solution
   Using what you have learned, try changing the address in the borwser below to force the webserver to return data from https://server.website.thm/flag?id=9. To make things easier the server requesting bar at the bottom of the mock browser will show the URL that website.thm is requesting. 
 
@@ -28,7 +27,6 @@
  SOLUTION = https://website.thm/item/2?server=server.website.thm/flag?id=9&x=
  SOLUTION_REQUEST = https://server.website.thm/flag?id=9&x=.website.thm/api/item?id=2
   * &x= is used to not use anything after it, this way it is bypassing the item request*
-
 
 * Finding an SSRF
   Potential SSRF vulnerabilities can be spotted in web applications in many different ways. Here is an example of four common places to look:
@@ -71,7 +69,6 @@ Open Redirect
 
 If the above bypasses do not work, there is one more trick up the attacker's sleeve, the open redirect. An open redirect is an endpoint on the server where the website visitor gets automatically redirected to another website address. Take, for example, the link https://website.thm/link?url=https://tryhackme.com. This endpoint was created to record the number of times visitors have clicked on this link for advertising/marketing purposes. But imagine there was a potential SSRF vulnerability with stringent rules which only allowed URLs beginning with https://website.thm/. An attacker could utilise the above feature to redirect the internal HTTP request to a domain of the attacker's choice.
   
-
 * SSRF Practical
 
   

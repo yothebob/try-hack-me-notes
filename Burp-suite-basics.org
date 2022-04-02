@@ -23,7 +23,6 @@ Due to the prohibitive costs involved with either of these editions of Burp Suit
 Note: Burp Suite for Windows is featured in the screenshots for many demonstrations; however, there are no differences between this and the copy of Burp Suite installed on the AttackBox.
 
 
-
 * Features of Burp Community
 
   Whilst Burp Community has a relatively limited feature-set compared to the Professional edition, it still has many superb tools available. These include:
@@ -41,7 +40,6 @@ Note: Burp Suite for Windows is featured in the screenshots for many demonstrati
     Sequencer: We usually use Sequencer when assessing the randomness of tokens such as session cookie values or other supposedly random generated data. If the algorithm is not generating secure random values, then this could open up some devastating avenues for attack.
 
 In addition to the myriad of in-built features, the Java codebase also makes it very easy to write extensions to add to the functionality of the Burp framework. These can be written in Java, Python (using the Java Jython interpreter), or Ruby (using the Java JRuby interpreter). The Burp Suite Extender module can quickly and easily load extensions into the framework, as well as providing a marketplace to download third-party modules (referred to as the "BApp Store"). Whilst many of these extensions require a professional license to download and add in, there are still a fair number that can be integrated with Burp Community. For example, we may wish to extend the inbuilt logging functionality of Burp Suite with the Logger++ module.
-
 
 
 * Installation
@@ -63,7 +61,6 @@ Once we have verified the integrity of our download, we can install it in the no
 Note: If installing in Linux, you can choose to install either with or without super-user permissions. If you decide not to use sudo when executing the script, Burp Suite will be installed in your home directory at ~/BurpSuiteCommunity/BurpSuiteCommunity and will not be added to your PATH.
 
 The installation wizard is very intuitive. It is generally safe to accept the suggested defaults, regardless of your operating system; however, it is still sensible to read through the installer carefully.
-
 
 * The Dashboard
 
@@ -102,7 +99,6 @@ Clicking on these will open a new window containing help for the section, for ex
 Screenshot showing the help text for the Dashboard
 
 These are extremely useful if you're ever stuck and don't know what a feature does, so make good use of them!
-
 
 * Navigation
 

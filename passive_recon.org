@@ -1,7 +1,7 @@
 #+TITLE: Passive Reconnaissance
 
 
-
+* Intro
 Welcome to the first room of the Network Security Module. This module covers:
 
     Passive Reconnaissance
@@ -33,7 +33,6 @@ Pre-requisites: This room requires basic networking knowledge along with basic f
 
 Important Notice: Please note that if you're not subscribed, the AttackBox won't have Internet access, so you will need to use the VPN to complete the questions that require Internet access.
 
-
 * Passive Vs Active Recon
 
   This room expects the user to have a working knowledge of computer networks. If you like to brush up on this topic, you are encouraged to study the Network Fundamentals module first.
@@ -62,7 +61,6 @@ Examples of active reconnaissance activities include:
     Entering company premises pretending to be a repairman.
 
 Considering the invasive nature of active reconnaissance, one can quickly get into legal trouble unless one obtains proper legal authorisation.
-
 
 * WHOIS
 
@@ -115,7 +113,6 @@ The information collected can be inspected to find new attack surfaces, such as 
 It is important to note that due to automated tools abusing WHOIS queries to harvest email addresses, many WHOIS services take measures against this. They might redact email addresses, for instance. Moreover, many registrants subscribe to privacy services to avoid their email addresses being harvested by spammers and keep their information private.
 
 On the AttackBox, open the terminal and run the whois tryhackme.com command to get the information you need to answer the following questions.
-
 
 * nslookup and dig
 
@@ -219,7 +216,6 @@ There is currently a beta feature that allows you to export the graph as well. Y
 
 Use the web browser on the AttackBox, or your system, to answer the following question.
 
-  
 * Shodan.io
 
   When you are tasked to run a penetration test against specific targets, as part of the passive reconnaissance phase, a service like Shodan.io can be helpful to learn various pieces of information about the client’s network, without actively connecting to it. Furthermore, on the defensive side, you can use different services from Shodan.io to learn about connected and exposed devices belonging to your organization.

@@ -1,6 +1,6 @@
 #+TITLE:  Nmap Live Host Discovery
 
-
+* Intro
 
 When we want to target a network, we want to find an efficient tool to help us handle repetitive tasks and answer the following questions:
 
@@ -68,7 +68,6 @@ Send a packet with the following:
 
 How many devices can see the ARP Request?
 
-
 * Subnetworks
 
   Let's review a couple of terms before we move on to the main tasks. A network segment is a group of computers connected using a shared medium. For instance, the medium can be the Ethernet switch or WiFi access point. In an IP network, a subnetwork is usually the equivalent of one or more network segments connected together and configured to use the same router. The network segment refers to a physical connection, while a subnetwork refers to a logical connection.
@@ -99,7 +98,6 @@ Send a packet with the following:
 
 
 
-
 * Enumerating Targets
 
 We mentioned the different techniques we can use for scanning in Task 1. Before we explain each in detail and put it into use against a live target, we need to specify the targets we want to scan. Generally speaking, you can provide a list, a range, or a subnet. Examples of target specification are:
@@ -113,7 +111,6 @@ You can also provide a file as input for your list of targets, nmap -iL list_of_
 If you want to check the list of hosts that Nmap will scan, you can use nmap -sL TARGETS. This option will give you a detailed list of the hosts that Nmap will scan without scanning them; however, Nmap will attempt a reverse-DNS resolution on all the targets to obtain their names. Names might reveal various information to the pentester. (If you don’t want Nmap to the DNS server, you can add -n.)
 
 Launch the AttackBox using the Start AttackBox button, open the terminal when the AttackBox is ready, and use Nmap to answer the following.
-
 
 
 * Discovering Live Hosts
@@ -216,7 +213,6 @@ Ending arp-scan 1.9: 256 hosts scanned in 2.726 seconds (93.91 hosts/sec). 3 res
 Similarly, the command arp-scan will generate many ARP queries that we can see using tcpdump, Wireshark, or a similar tool. We can notice that the packet capture for arp-scan and nmap -PR -sn yield similar traffic patterns. Below is the Wireshark output.
 
 If you have closed the network simulator, click on the “Visit Site” button in Task 2 to display it again.
-
 
 * Nmap Host Discovery Using ICMP
 
@@ -346,7 +342,6 @@ Nmap done: 256 IP addresses (0 hosts up) scanned in 52.17 seconds
 
 Although we didn’t get any reply and could not figure out which hosts are online, it is essential to note that this scan sent ICMP address mask requests to every valid IP address and waited for a reply. Each ICMP request was sent twice, as we can see in the screenshot below.
 
-
 * Nmap Host Discovery Using TCP and UDP 
 
 
@@ -448,7 +443,6 @@ On a side note, Masscan uses a similar approach to discover the available system
     masscan MACHINE_IP/24 ‐‐top-ports 100
 
 Masscan is not installed on the AttackBox; however, it can be installed using apt install masscan
-
 
 * Using Reverse-DNS Lookup
 

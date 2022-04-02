@@ -17,7 +17,6 @@ The ffuf tool and wordlist come pre-installed on the AttackBox or can be install
 
 Save the results from this command into a file called valid_usernames.txt which we can use in a later task and then answer the questions below.
                
-
 * Brute force
 
 Using the valid_usernames.txt file we generated in the previous task, we can now use this to attempt a brute force attack on the login page (http://10.10.35.206/customers/login).
@@ -36,7 +35,6 @@ user@tryhackme$ ffuf -w valid_usernames.txt:W1,/usr/share/wordlists/SecLists/Pas
 This ffuf command is a little different to the previous one in Task 2. Previously we used the FUZZ keyword to select where in the request the data from the wordlists would be inserted, but because we're using multiple wordlists, we have to specify our own FUZZ keyword. In this instance, we've chosen W1 for our list of valid usernames and W2 for the list of passwords we will try. The multiple wordlists are again specified with the -w argument but separated with a comma.  For a positive match, we're using the -fc argument to check for an HTTP status code other than 200.
 
 Running the above command will find a single working username and password combination that answers the question below.
-
 
 * Logic Flaw
 
@@ -82,7 +80,6 @@ We use the -H flag to add an additional header to the request. In this instance,
 In the application, the user account is retrieved using the query string, but later on, in the application logic, the password reset email is sent using the data found in the PHP variable $_REQUEST.
 
 The PHP $_REQUEST variable is an array that contains data received from the query string and POST data. If the same key name is used for both the query string and POST data, the application logic for this variable favours POST data fields rather than the query string, so if we add another parameter to the POST form, we can control where the password reset email gets delivered.
-
 
 
 

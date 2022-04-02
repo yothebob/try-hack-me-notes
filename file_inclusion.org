@@ -18,7 +18,6 @@ File inclusion vulnerabilities are commonly found and exploited in various progr
 What is the risk of File inclusion?
 It depends! If the attacker can use file inclusion vulnerabilities to read sensitive data. In that case, the successful attack causes to leak of sensitive data, including code and files related to the web application, credentials for back-end systems. Moreover, if the attacker somehow can write to the server such as  /tmp directory, then it is possible to gain remote command execution RCE. However, it won't be effective if file inclusion vulnerability is found with no access to sensitive data and no writing ability to the server.
 
-
 * Path Traversal
 
 Also known as Directory traversal, a web security vulnerability allows an attacker to read operating system resources, such as local files on the server running an application. The attacker exploits this vulnerability by manipulating and abusing the web application's URL to locate and access files or directories stored outside the application's root directory.
@@ -78,7 +77,6 @@ C:\boot.ini
 	contains the boot options for computers with BIOS firmware
 
 
-
 *  Local File Inclusion (﻿LFI)
 
 LFI attacks against web applications are often due to a developers' lack of security awareness. With PHP, using functions such as include, require, include_once, and require_once often contribute to vulnerable web applications. In this room, we'll be picking on PHP, but it's worth noting LFI vulnerabilities also occur when using other languages such as ASP, JSP, or even in Node.js apps. LFI exploits follow the same concepts as path traversal.
@@ -112,7 +110,6 @@ Again the payload looks similar to the path traversal, but the include function 
 http://webapp.thm/index.php?lang=../../../../etc/passwd
 
 Now apply what we discussed, try to read files within the server, and figure out the directory specified in the include function and answer question #2 below.
-
 
 * LOcal File Inclusion - LFI #2
 
@@ -186,7 +183,6 @@ https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/
 
 4. Finally, we'll discuss the case where the developer forces the include to read from a defined directory! For example, if the web application asks to supply input that has to include a directory such as: http://webapp.thm/index.php?lang=languages/EN.php then, to exploit this, we need to include the directory in the payload like so: ?lang=languages/../../../../../etc/passwd.
 
-
 * Remote File Inclusion-RFI
   
 Remote File Inclusion (RFI) is a technique to include remote files and into a vulnerable application. Like LFI, the RFI occurs when improperly sanitizing user input, allowing an attacker to inject an external URL into include function. One requirement for RFI is that the allow_url_fopen option needs to be on.
@@ -200,7 +196,6 @@ The risk of RFI is higher than LFI since RFI vulnerabilities allow an attacker t
 
 
 An external server must communicate with the application server for a successful RFI attack where the attacker hosts malicious files on their server. Then the malicious file is injected into the include function via HTTP requests, and the content of the malicious file executes on the vulnerable application server.
-
 
 * Remediation
   
