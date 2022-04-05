@@ -20,9 +20,9 @@ This room explains the steps that Nmap carries out to discover the systems that 
 
 We present the different approaches that Nmap uses to discover live hosts. In particular, we cover:
 
-    ARP scan: This scan uses ARP requests to discover live hosts
-    ICMP scan: This scan uses ICMP requests to identify live hosts
-    TCP/UDP ping scan: This scan sends packets to TCP ports and UDP ports to determine live hosts.
+    - ARP scan: This scan uses ARP requests to discover live hosts
+    - ICMP scan: This scan uses ICMP requests to identify live hosts
+    - TCP/UDP ping scan: This scan sends packets to TCP ports and UDP ports to determine live hosts.
 
 We also introduce two scanners, arp-scan and masscan, and explain how they overlap with part of Nmap’s host discovery.
 
