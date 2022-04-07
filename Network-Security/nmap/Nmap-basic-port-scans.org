@@ -225,8 +225,8 @@ This room covered three types of scans.
 
 These scan types should get you started discovering running TCP and UDP services on a target host.
 | Option                | Purpose                         |
-| -p-                   | all ports                       |
 |-----------------------+---------------------------------|
+| -p-                   | all ports                       |
 | -p1-1023              | scan ports 1 to 1023            |
 | -F                    | 100 most common ports           |
 | -r                    | scan ports in consecutive order |

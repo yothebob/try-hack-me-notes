@@ -360,7 +360,6 @@ A : -S 10.10.10.11
 What do you need to add to the command sudo nmap 10.10.115.81 to make the scan appear as if coming from the source IP addresses 10.10.20.21 and 10.10.20.28 in addition to your IP address?
 A : -D 10.10.20.21,10.10.20.28,ME
 
-
 * Fragmented Packets
 **  Firewall
 
@@ -510,7 +509,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1.59 seconds
         
 
 If -vv does not satisfy your curiosity, you can use -d for debugging details or -dd for even more details. You can guarantee that using -d will create an output that extends beyond a single screen.
-  
+
 * Summary
 This room covered the following types of scans.
 | Port Scan Type                 | Example Command                                        |
