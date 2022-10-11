@@ -182,3 +182,5 @@ The hardest part of planning a threat-intel-driven campaign can be mapping two d
 To begin working through this task, download the required resources and launch the static site attached to this task.
 
 Your team has already decided to use the Lockheed Martin cyber kill chain to emulate APT 41 as the adversary that best fits the client's objectives and scope.
+
+
