@@ -393,7 +393,7 @@ Execution Policy
 
 PowerShell's execution policy is a security option to protect the system from running malicious scripts. By default, Microsoft disables executing PowerShell scripts .ps1 for security purposes. The PowerShell execution policy is set to Restricted, which means it permits individual commands but not run any scripts.
 
-You can determine the current PowerShell setting of your Windows as follows,
+You can determine the current PowerShell setting of yougr Windows as follows,
 CMD
 
            
@@ -482,4 +482,102 @@ Microsoft Windows [Version 10.0.14393]
 
 C:\Users\thm>
 
-	    
+** Command And Control - (C2 Or C&C)
+
+
+
+This task introduces the basic concept of Command and Control (C2) frameworks used in Red team operations.
+
+
+
+
+What is Command and Control (C2)?
+
+C2 frameworks are post-exploitation frameworks that allow red teamers to collaborate and control compromised machines. C2 is considered one of the most important tools for red teamers during offensive cyber operations. C2 frameworks provide fast and straightforward approaches to:
+
+    Generate various malicious payloads
+    Enumerate the compromised machine/networks
+    Perform privilege escalation and pivoting
+    Lateral movement 
+    And many others
+
+
+Some popular C2 frameworks that we'll briefly highlight are Cobalt Strike, PowerShell Empire, Metasploit. Most of these frameworks aim to support a convenient environment to share and communicate between red team operations once the initial access is gained to a system.
+
+
+Cobalt Strike
+
+Cobalt Strike is a commercial framework that focuses on Adversary Simulations and Red Team Operations. It is a combination of remote access tools, post-exploitation capabilities, and a unique reporting system. It provides an agent with advanced techniques to establish covert communications and perform various operations, including key-logging, files upload and download, VPN deployment, privilege escalation techniques, mimikatz, port scanning, and the most advanced lateral movements.
+
+PowerShell Empire
+
+PowerShell Empire is an open-source framework that helps red team operators and pen testers collaborate across multiple servers using keys and shared passwords. It is an exploitation framework based on PowerShell and Python agents. PowerShell Empire focuses on client-side and post-exploitation of Windows and Active Directory environment. If you want to learn more about PowerShell Empire, we suggest trying out this room: Empire.
+
+Metasploit 
+
+Metasploit is a widely used exploitation framework that offers various techniques and tools to perform hacking easily. It is an open-source framework and is considered one of the primary tools for pentesting and red team operations. Metasploit is one of the tools we use in this room to generate payload for our weaponization stage. If you want to learn more about the Metasploit framework, we suggest trying out the following two rooms: Metasploit: Introduction and Metasploit.
+
+Most of the C2 frameworks use the techniques mentioned in this room as preparation for the initial access stage. For more details about the C2 framework, we invite you to check the Intro to C2 room.
+
+** Delivery Techniques
+
+Delivery Techniques
+
+Delivery techniques are one of the important factors for getting initial access. They have to look professional, legitimate, and convincing to the victim in order to follow through with the content.
+
+
+*** Email Delivery
+
+It is a common method to use in order to send the payload by sending a phishing email with a link or attachment. For more info, visit here. This method attaches a malicious file that could be the type we mentioned earlier. The goal is to convince the victim to visit a malicious website or download and run the malicious file to gain initial access to the victim's network or host.
+
+The red teamers should have their own infrastructure for phishing purposes. Depending on the red team engagement requirement, it requires setting up various options within the email server, including DomainKeys Identified Mail (DKIM), Sender Policy Framework (SPF), and DNS Pointer (PTR) record.
+
+The red teamers could also use third-party email services such as Google Gmail, Outlook, Yahoo, and others with good reputations.
+
+Another interesting method would be to use a compromised email account within a company to send phishing emails within the company or to others. The compromised email could be hacked by phishing or by other techniques such as password spraying attacks.
+
+*** Web Delivery
+
+Another method is hosting malicious payloads on a web server controlled by the red teamers. The web server has to follow the security guidelines such as a clean record and reputation of its domain name and TLS (Transport Layer Security) certificate. For more information, visit here.
+
+This method includes other techniques such as social engineering the victim to visit or download the malicious file. A URL shortener could be helpful when using this method.
+
+In this method, other techniques can be combined and used. The attacker can take advantage of zero-day exploits such as exploiting vulnerable software like Java or browsers to use them in phishing emails or web delivery techniques to gain access to the victim machine.
+
+
+*** USB Delivery
+
+This method requires the victim to plug in the malicious USB physically. This method could be effective and useful at conferences or events where the adversary can distribute the USB. For more information about USB delivery, visit here.
+
+Often, organizations establish strong policies such as disabling USB usage within their organization environment for security purposes. While other organizations allow it in the target environment.
+
+Common USB attacks used to weaponize USB devices include Rubber Ducky and USBHarpoon, charging USB cable, such as O.MG Cable.
+
+** Practice Arena
+
+We have prepared a Windows 10 machine that runs a user simulation web app to execute your payloads or visit the malicious HTA links automatically. Deploy the attached machine and wait a couple of minutes until it's up and running. Then, visit the user simulator web application at http://10.10.219.78:8080/.
+
+Make sure to visit the user simulator web application from the AttackBox, or you can access it by connecting to the VPN.
+
+
+The web application allows uploading payloads as VBS, DOC, PS1 files. In addition, if you provide a malicious HTA link, the web application will visit your link.
+
+Note for Doc files: the simulation used in the provided Windows 10 machine will open the malicious Word document and be closed within 90 seconds. In order to get longer prescience, you need to migrate as soon as you receive the connection back. 
+
+In the Metasploit framework, we can inject our current process into another process on the victim machine using migrate. In our case, we need to migrate our current process, which is the MS word document, into another process to make the connection stable even if the MS word document is closed. The easiest way to do this is by using migrate post-module as follow,
+Terminal
+
+           
+meterpreter > run post/windows/manage/migrate 
+
+[*] Running module against DESKTOP-1AU6NT4
+[*] Current server process: svchost.exe (3280)
+[*] Spawning notepad.exe process to migrate into
+[*] Spoofing PPID 0
+[*] Migrating into 4960
+[+] Successfully migrated into process 4960
+
+In this task, the goal is to generate a reverse shell payload of your choice and send it through the web application. Once the web application runs your payload, you should receive a connect back. Answer the question below and prove your access by finding the flag once you receive a reverse shell.
+
+For reference, you can use the MSFVenom Cheat Sheet on this website.
+
