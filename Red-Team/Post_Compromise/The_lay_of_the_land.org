@@ -551,3 +551,180 @@ Below are some common EDR software for endpoints
 Even though an attacker successfully delivered their payload and bypassed EDR in receiving reverse shell, EDR is still running and monitors the system. It may block us from doing something else if it flags an alert.
 
 We can use scripts for enumerating security products within the machine, such as Invoke-EDRChecker and SharpEDRChecker. They check for commonly used Antivirus, EDR, logging monitor products by checking file metadata, processes, DLL loaded into current processes, Services, and drivers, directories.
+
+* Network Security Solutions
+
+
+This task will discuss network security solutions commonly seen and used in enterprises networks.
+
+** Network Security Solutions
+
+
+Network security solutions could be software or hardware appliances used to monitor, detect and prevent malicious activities within the network. It focuses on protecting clients and devices connected to the cooperation network. The network security solution includes but is not limited to:
+
+ - Network Firewall
+ - SIEM
+ - IDS/IPS
+
+** Network Firewall
+
+
+A firewall is the first checkpoint for untrusted traffic that arrives at a network. The firewall filters the untrusted traffic before passing it into the network based on rules and policies. In addition, Firewalls can be used to separate networks from external traffic sources, internal traffic sources, or even specific applications. Nowadays, firewall products are built-in network routers or other security products that provide various security features. The following are some firewall types that enterprises may use.
+
+ - Packet-filtering firewalls
+ - Proxy firewalls
+ - NAT firewalls
+ - Web application firewalls
+
+** Security Information and Event Management (SIEM)
+
+
+SIEM combines Security Information Management (SIM) and Security Event Management (SEM) to monitor and analyze events and track and log data in real-time. SIEM helps system administrators and blue teamers to monitor and track potential security threats and vulnerabilities before causing damage to an organization. 
+
+SIEM solutions work as log data aggregation center, where it collects log files from sensors and perform functions on the gathered data to identify and detect security threats or attacks. The following are some of the functions that a SIEM may offer:
+
+ - Log management: It captures and gathers data for the entire enterprise network in real-time.
+ - Event analytics: It applies advanced analytics to detect abnormal patterns or behaviors, available in the dashboard with charts and statistics.
+ - Incident monitoring and security alerts: It monitors the entire network, including connected users, devices, applications, etcetera, and as soon as attacks are detected, it alerts administrators immediately to take appropriate action to mitigate.
+ - Compliance management and reporting: It generates real-time reports at any time.
+
+SIEM is capable of detecting advanced and unknown threats using integrated threat intelligence and AI technologies, including Insider threats, security vulnerabilities, phishing attacks, Web attacks, DDoS attacks, data exfiltration, etc.
+
+The following are some of the SIEM products that are commonly seen in many enterprises:
+
+ -  Splunk
+ -  LogRhythm NextGen SIEM Platform
+ -  SolarWinds Security Event Manager
+ -  Datadog Security Monitoring
+ -  many others
+
+Intrusion Detection System and Intrusion Prevention System (NIDS/NIPS)
+
+
+Network-based IDS/IPS have a similar concept to the host-based IDS/IPS. The main difference is that the network-based products focus on the security of a network instead of a host. The network-based solution will be based on sensors and agents distributed in the network devices and hosts to collect data. IDS and IPS are both detection and monitoring cybersecurity solutions that an enterprise uses to secure its internal systems. They both read network packets looking for abnormal behaviors and known threats pre-loaded into a previous database. The significant difference between both solutions is that the IDS requires human interaction or 3rd party software to analyze the data to take action. The IPS is a control system that accepts or rejects packets based on policies and rules.
+
+The following are common enterprise IDS/IPS products 
+
+ - Palo Alto Networks
+ - Cisco's Next-Generation 
+ - McAfee Network Security Platform (NSP)
+ - Trend Micro TippingPoint
+ - Suricata
+
+For more information about IDS/IPS, visit the reference [[https://geekflare.com/ids-vs-ips-network-security-solutions/][link.]]
+
+* Applications and Services
+
+
+
+This task will expand our knowledge needed to learn more about the system. We discussed account discovery and security products within the system in previous tasks. We will continue learning more about the system, including:
+
+    Installed applications
+    Services and processes
+    Sharing files and printers
+    Internal services: DNS and local web applications
+
+It is necessary to understand what the system provides in order to get the benefit of the information.
+
+Installed Applications
+
+First, we start enumerating the system for installed applications by checking the application's name and version. As a red teamer, this information will benefit us. We may find vulnerable software installed to exploit and escalate our system privileges. Also, we may find some information, such as plain-text credentials, is left on the system that belongs to other systems or services.
+
+ We will be using the wmic Windows command to list all installed applications and their version.
+PowerShell
+
+           
+			
+PS C:\Users\thm> wmic product get name,version
+Name                                                            Version
+Microsoft Visual C++ 2019 X64 Minimum Runtime - 14.28.29910     14.28.29910
+AWS Tools for Windows                                           3.15.1248
+Amazon SSM Agent                                                3.0.529.0
+aws-cfn-bootstrap                                               2.0.5
+AWS PV Drivers                                                  8.3.4
+Microsoft Visual C++ 2019 X64 Additional Runtime - 14.28.29910  14.28.29910
+
+Another interesting thing is to look for particular text strings, hidden directories, backup files. Then we can use the PowerShell cmdlets, Get-ChildItem, as follow:
+PowerShell
+
+           
+			
+PS C:\Users\thm> Get-ChildItem -Hidden -Path C:\Users\kkidd\Desktop\
+
+Services and Process
+
+Windows services enable the system administrator to create long-running executable applications in our own Windows sessions. Sometimes Windows services have misconfiguration permissions, which escalates the current user access level of permissions. Therefore, we must look at running services and perform services and processes reconnaissance.  For more details, you can read about process discovery on Attack MITRE.
+
+Process discovery is an enumeration step to understand what the system provides. The red team should get information and details about running services and processes on a system. We need to understand as much as possible about our targets. This information could help us understand common software running on other systems in the network. For example, the compromised system may have a custom client application used for internal purposes. Custom internally developed software is the most common root cause of escalation vectors. Thus, it is worth digging more to get details about the current process.  
+
+For more details about core Windows processes from the blue team perspective, check out the TryHackMe room: Core Windows Process.
+
+Sharing files and Printers
+
+
+Sharing files and network resources is commonly used in personal and enterprise environments. System administrators misconfigure access permissions, and they may have useful information about other accounts and systems. For more information on printer hacking, we suggest trying out the following TryHackMe room: Printer Hacking 101.
+
+Internal services: DNS, local web applications, etc
+
+Internal network services are another source of information to expand our knowledge about other systems and the entire environment. To get more details about network services that are used for external and internal network services, we suggest trying out the following rooms: Network Service, Network Service2.
+
+The following are some of the internal services that are commonly used that we are interested in:
+
+    DNS Services
+    Email Services
+    Network File Share
+    Web application
+    Database service
+
+Answer the questions below
+
+Let's try listing the running services using the Windows command prompt net start to check if there are any interesting running services.
+PowerShell
+
+           
+			
+PS C:\Users\thm> net start
+These Windows services are started:
+
+Active Directory Web Services
+Amazon SSM Agent
+Application Host Helper Service
+Cryptographic Services
+DCOM Server Process Launcher
+DFS Namespace
+DFS Replication
+DHCP Client
+Diagnostic Policy Service
+THM Demo
+DNS Client
+
+We can see a service with the name THM Demo which we want to know more about.
+
+Now let's look for the exact service name, which we need to find more information.
+PowerShell
+
+           
+			
+PS C:\Users\thm> wmic service where "name like 'THM Demo'" get Name,PathName
+Name         PathName
+THM Service  c:\Windows\thm-demo.exe
+
+We find the file name and its path; now let's find more details using the Get-Process cmdlet. 
+PowerShell
+
+           
+			
+PS C:\Users\thm> Get-Process -Name thm-demo
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+     82       9    13128       6200              3212   0 thm-service
+
+Once we find its process ID, let's check if providing a network service by listing the listening ports within the system.
+PowerShell
+
+           
+			
+PS C:\Users\thm> netstat -noa |findstr "LISTENING" |findstr "3212"
+  TCP    0.0.0.0:8080          0.0.0.0:0              LISTENING       3212
+  TCP    [::]:8080             [::]:0                 LISTENING       3212
