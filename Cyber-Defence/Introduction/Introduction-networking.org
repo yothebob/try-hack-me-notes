@@ -236,3 +236,13 @@ The TTL can be found in the second column of the answer section:
 It's important to remember that TTL (in the context of DNS caching) is measured in seconds, so the record in the example will expire in two minutes and thirty-seven seconds.
 
 Have a go at some questions about DNS and dig.
+
+* Further Reading
+
+
+
+That's us completed our whirlwind tour of networking basics. Hopefully you've found it informative!
+
+Networking is one of those things that you just need to learn. We've covered the very basics, but it would be a very good idea to continue to learn by yourself.
+
+In terms of further information, feel free to reach out in the TryHackMe Discord if you want any help with the contents of this room. Additionally, if you want to expand your knowledge of networking theory, the [[https://www.amazon.co.uk/Interconnecting-Cisco-Network-Devices-ICND1/dp/1587054620/ref=sr_1_1?keywords=Interconnecting+Cisco+Network+Devices%2C+Part+1&qid=1583683766&sr=8-1][CISCO Self Study Guide by Steve McQuerry]] is a great resource to work from. There may be a more up to date version available; however, this edition is cheap, readily available, and most importantly, still very relevant. Whilst it is designed to as a study guide for the CCNA exam, that book serves equally well as a very rounded introduction to networking principles.
