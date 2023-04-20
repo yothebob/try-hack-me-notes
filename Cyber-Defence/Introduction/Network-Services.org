@@ -354,3 +354,80 @@ A: PUBLIC_NOTICE.txt
 
 ** What do we think a possible username could be?
 A: mike
+
+
+* Exploiting FTP
+
+** Types of FTP Exploit
+
+Similarly to Telnet, when using FTP both the command and data channels are unencrypted. Any data sent over these channels can be intercepted and read.
+
+With data from FTP being sent in plaintext, if a man-in-the-middle attack took place an attacker could reveal anything sent through this protocol (such as passwords). An article written by [[https://www.jscape.com/blog/bid/91906/Countering-Packet-Sniffers-Using-Encrypted-FTP][JSCape]] demonstrates and explains this process using ARP-Poisoning to trick a victim into sending sensitive information to an attacker, rather than a legitimate source.
+
+When looking at an FTP server from the position we find ourselves in for this machine, an avenue we can exploit is weak or default password configurations.
+
+** Method Breakdown
+
+So, from our enumeration stage, we know:
+
+    - There is an FTP server running on this machine
+
+    - We have a possible username
+
+Using this information, let's try and bruteforce the password of the FTP Server.
+
+** Hydra
+
+Hydra is a very fast online password cracking tool, which can perform rapid dictionary attacks against more than 50 Protocols, including Telnet, RDP, SSH, FTP, HTTP, HTTPS, SMB, several databases and much more. Hydra comes by default on both Parrot and Kali, however if you need it, you can find the GitHub [[https://github.com/vanhauser-thc/thc-hydra][here]].
+
+The syntax for the command we're going to use to find the passwords is this:
+
+#+begin_src bash
+"hydra -t 4 -l dale -P /usr/share/wordlists/rockyou.txt -vV 10.10.10.6 ftp"
+#+end_src
+
+Let's break it down:
+
+| SECTION                 | FUNCTION                                                                             |
+|-------------------------+--------------------------------------------------------------------------------------|
+| hydra                   | Runs the hydra tool                                                                  |
+| -t 4                    | Number of parallel connections per target                                            |
+| -l [user]               | Points to the user who's account you're trying to compromise                         |
+| -P [path to dictionary] | Points to the file containing the list of possible passwords                         |
+| -vV                     | Sets verbose mode to very verbose, shows the login+pass combination for each attempt |
+| [machine IP]            | The IP address of the target machine                                                 |
+| ftp / protocol          | Sets the protocol                                                                    |
+
+Let's crack some passwords!
+
+** questions
+
+*** What is the password for the user "mike"?
+A: password (hydra -l mike -P /usr/share/wordlists/rockyou.txt.gz -vV ftp://[IPADDRESS])
+
+*** Bingo! Now, let's connect to the FTP server as this user using "ftp [IP]" and entering the credentials when prompted
+
+A: (ftp ftp://mike:password@[IPADDRESS])
+
+*** what is the ftp.txt
+
+A: THM{y0u_g0t_th3_ftp_fl4g}
+
+* Expanding your knowledge
+
+** Further Learning
+
+There is no checklist of things to learn until you've officially learnt everything you can. There will always be things that surprise us all, especially in the sometimes abstract logical problems of capture the flag challenges. But, as with anything, practice makes perfect. We can all look back on the things we've learnt after completing something challenging and I hope you feel the same about this room.
+
+** Reading
+
+Here's some things that might be useful to read after completing this room, if it interests you:
+
+    https://medium.com/@gregIT/exploiting-simple-network-services-in-ctfs-ec8735be5eef
+    https://attack.mitre.org/techniques/T1210/
+    https://www.nextgov.com/cybersecurity/2019/10/nsa-warns-vulnerabilities-multiple-vpn-services/160456/
+
+Thank you
+
+Thanks for taking the time to work through this room, I wish you the best of luck in future.
+~ Polo
