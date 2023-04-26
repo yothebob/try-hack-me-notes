@@ -300,4 +300,89 @@ Now we've covered the theory. Let's get going!
 ** Questions
 
 *** First, lets run a port scan against the target machine, same as last time. What port is SMTP running on?
-A: 
+A: 25
+
+*** Okay, now we know what port we should be targeting, let's start up Metasploit. What command do we use to do this?
+
+If you would like some more help or practice using Metasploit, TryHackMe has a module on Metasploit that you can check out here:
+
+https://tryhackme.com/module/metasploit
+
+A: msfconsole
+
+*** Let's search for the module "smtp_version", what's it's full module name?
+A: auxiliary/scanner/smtp/smtp_version
+
+*** Great, now- select the module and list the options. How do we do this?
+A: options
+
+*** Have a look through the options, does everything seem correct? What is the option we need to set?
+A: Rhosts
+
+*** Set that to the correct value for your target machine. Then run the exploit. What's the system mail name?
+A: polosmtp.home
+
+*** What Mail Transfer Agent (MTA) is running the SMTP server? This will require some external research.
+A: auxiliary/scanner/smtp/smtp_enum
+
+*** What option do we need to set to the wordlist's path?
+
+We're going to be using the "top-usernames-shortlist.txt" wordlist from the Usernames subsection of seclists (/usr/share/wordlists/SecLists/Usernames if you have it installed).
+
+Seclists is an amazing collection of wordlists. If you're running Kali or Parrot you can install seclists with: "sudo apt install seclists" Alternatively, you can download the repository from here.
+
+A: user_file
+
+*** Once we've set this option, what is the other essential paramater we need to set?
+A: rhosts
+
+*** what username was returned?
+A: administrator
+* Exploiting SMTP
+What do we know?
+
+Okay, at the end of our Enumeration section we have a few vital pieces of information:
+
+1. A user account name
+
+2. The type of SMTP server and Operating System running.
+
+We know from our port scan, that the only other open port on this machine is an SSH login. We're going to use this information to try and bruteforce the password of the SSH login for our user using Hydra.
+
+** Preparation
+
+It's advisable that you exit Metasploit to continue the exploitation of this section of the room. Secondly, it's useful to keep a note of the information you gathered during the enumeration stage, to aid in the exploitation.
+
+** Hydra
+
+There is a wide array of customisability when it comes to using Hydra, and it allows for adaptive password attacks against of many different services, including SSH. Hydra comes by default on both Parrot and Kali, however if you need it, you can find the GitHub here.
+
+Hydra uses dictionary attacks primarily, both Kali Linux and Parrot OS have many different wordlists in the "/usr/share/wordlists" directory- if you'd like to browse and find a different wordlists to the widely used "rockyou.txt". Likewise I recommend checking out SecLists for a wider array of other wordlists that are extremely useful for all sorts of purposes, other than just password cracking. E.g. subdomain enumeration
+
+The syntax for the command we're going to use to find the passwords is this:
+#+begin_src bash
+"hydra -t 16 -l USERNAME -P /usr/share/wordlists/rockyou.txt -vV 10.10.231.135 ssh"
+#+end_src
+
+Let's break it down:
+
+| SECTION                 | FUNCTION                                                                             |
+|-------------------------+--------------------------------------------------------------------------------------|
+| hydra                   | Runs the hydra tool                                                                  |
+| -t 16                   | Number of parallel connections per target                                            |
+| -l [user]               | Points to the user who's account you're trying to compromise                         |
+| -P [path to dictionary] | Points to the file containing the list of possible passwords                         |
+| -vV                     | Sets verbose mode to very verbose, shows the login+pass combination for each attempt |
+| [machine IP]            | The IP address of the target machine                                                 |
+| ssh / protocol          | Sets the protocol                                                                    |
+
+
+Looks like we're ready to rock n roll!
+
+** Answers
+*** What is the password of the user we found during our enumeration stage?
+A: alejandro
+*** Great! Now, let's SSH into the server as the user, what is contents of smtp.txt
+A: THM{who_knew_email_servers_were_c00l?}
+
+
