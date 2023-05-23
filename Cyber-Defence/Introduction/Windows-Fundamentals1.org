@@ -289,3 +289,4 @@ If you click on Groups, you see all the names of the local groups along with a b
 Each group has permissions set to it, and users are assigned/added to groups by the Administrator. When a user is assigned to a group, the user inherits the permissions of that group. A user can be assigned to multiple groups.
 
 Note: If you click on Add someone else to this PC from Other users, it will open Local Users and Management.
+
